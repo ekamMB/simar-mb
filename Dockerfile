@@ -5,4 +5,4 @@ COPY target/MarriageBureau-0.0.1-SNAPSHOT.jar /app/MarriageBureau-0.0.1-SNAPSHOT
 
 EXPOSE 8080
 
-ENTRYPOINT [ "java", "-jar", "MarriageBureau-0.0.1-SNAPSHOT.jar" ]
+ENTRYPOINT ["java", "-jar", "MarriageBureau-0.0.1-SNAPSHOT.jar"]
