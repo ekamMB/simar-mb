@@ -1,40 +1,39 @@
 version: "3.8"
 
 services:
-  mysql:
-    image: mysql:8
-    container_name: mysql_db_docker
+  postgres:
+    image: postgres:16
+    container_name: postgres_db_docker
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: marriagebureau
+      POSTGRES_DB: marriagebureau
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
     ports:
-      - "3307:3306"
+      - "5432:5432"
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - ./postgres_data:/var/lib/postgresql/data
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
     environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: root
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - "8081:80"
     depends_on:
-      - mysql
+      - postgres
 
   springboot:
     build: .
     container_name: MarriageBureau
     environment:
       SERVER_PORT: 8080
-      MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
-      MYSQL_DB: marriagebureau
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: marriagebureau
+      DB_USER: postgres
+      DB_PASSWORD: root
       EMAIL_HOST: smtp.gmail.com
       EMAIL_PORT: 587
       EMAIL_USERNAME: temporarydummymail@gmail.com
@@ -46,7 +45,7 @@ services:
     ports:
       - "8282:8080"
     depends_on:
-      - mysql
+      - postgres
 
 volumes:
-  mysql_data:
+  postgres_data:

@@ -24,11 +24,12 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
 	Optional<User> findByEmailAndPassword(String email, String password);
 
-	@Query("select u from user u where u.email = :email")
+	@Query("select u from app_user u where u.email = :email")
 	public User getUserByUserName(@Param("email") String email);
 
 //	@Query("select u from User u where u.userId = :userId")
 //	public User getUserByUserId(@Param("userId") String userId);
+
 
 // Find Match User by Custom Criteria ----->
 //	@Query("SELECT u FROM user u WHERE " +
@@ -42,7 +43,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
 //	        "(:minHeight IS NULL OR u.height >= :minHeight) AND " +
 //	        "(:maxHeight IS NULL OR u.height <= :maxHeight) AND " +
 //	        "(:occupation IS NULL OR u.occupation = :occupation)")
-	@Query("SELECT u FROM user u WHERE ( u.gender = :gender ) AND " + "( u.religion = :religion ) AND "
+	@Query("SELECT u FROM app_user u WHERE ( u.gender = :gender ) AND " + "( u.religion = :religion ) AND "
 			+ "( u.caste = :caste ) AND " + "( u.age BETWEEN :minAge AND :maxAge ) AND "
 			+ "( u.height BETWEEN :minHeight AND :maxHeight ) AND " + "( u.marriedStatus = :marriedStatus ) AND "
 			+ "( u.place = :place ) AND " + "( u.occupation = :occupation)")
@@ -52,7 +53,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
 			@Param("marriedStatus") String marriedStatus, @Param("place") String place,
 			@Param("occupation") String occupation);
 
-	@Query("SELECT u FROM user u WHERE ( u.gender = :gender ) AND " + "( u.religion = :religion ) AND "
+	@Query("SELECT u FROM app_user u WHERE ( u.gender = :gender ) AND " + "( u.religion = :religion ) AND "
 			+ "( u.caste = :caste ) AND " + "( u.age BETWEEN :minAge AND :maxAge ) AND "
 			+ "( u.height BETWEEN :minHeight AND :maxHeight ) AND " + "( u.marriedStatus = :marriedStatus ) AND "
 			+ "( u.place = :place ) AND " + "( u.occupation = :occupation)")

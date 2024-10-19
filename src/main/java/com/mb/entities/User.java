@@ -41,8 +41,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity(name = "user")
-@Table(name = "user")
+@Entity(name = "app_user")
+@Table(name = "app_user") // Change from user to app_user
 @Getter
 @Setter
 @AllArgsConstructor
