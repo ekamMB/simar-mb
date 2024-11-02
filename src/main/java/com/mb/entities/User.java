@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -92,32 +94,33 @@ public class User implements UserDetails {
 	@Column(columnDefinition = "TEXT")
 	private String images;
 //	private String picture;
-	
 
-    // Utility method to convert a list of image URLs to a JSON string
-    @JsonIgnore
-    public void setImagesList(List<String> imagesList) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            // Ensure the list is properly serialized into a single JSON string
-            this.images = objectMapper.writeValueAsString(imagesList);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-    }
- 
-    // Utility method to get a list of image URLs from the JSON string in the database
-    @JsonIgnore
-    public List<String> getImagesList() {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            // Convert the JSON string back to a list of image URLs
-            return objectMapper.readValue(this.images, List.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return new ArrayList<>();
-        }
-    }
+	// Utility method to convert a list of image URLs to a JSON string
+	@JsonIgnore
+	public void setImagesList(List<String> imagesList) {
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			// Ensure the list is properly serialized into a single JSON string
+			this.images = objectMapper.writeValueAsString(imagesList);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	// Utility method to get a list of image URLs from the JSON string in the
+	// database
+	@JsonIgnore
+	public List<String> getImagesList() {
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			// Convert the JSON string back to a list of image URLs
+			return objectMapper.readValue(this.images, List.class);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+
 	public String getPicture() {
 		return images != null && !images.isEmpty() ? getImagesList().get(0)
 				: "https://manpreetsingh.vercel.app/_next/image?url=%2FImage-removebg.png&w=1080&q=75";
@@ -130,8 +133,9 @@ public class User implements UserDetails {
 	private String gender; // male, female
 
 	private String religion; // hindu, sikh, muslium
-	private String caste; // ramgharia, suri, jatt
+	private String caste; // ramgharia, suri, jatt, bania, hindu
 	private String subcaste; // Bhamra...
+
 
 	private int minAge;
 //	private int age;

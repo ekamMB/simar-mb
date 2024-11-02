@@ -27,22 +27,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
 	@Query("select u from app_user u where u.email = :email")
 	public User getUserByUserName(@Param("email") String email);
 
-//	@Query("select u from User u where u.userId = :userId")
-//	public User getUserByUserId(@Param("userId") String userId);
-
-
-// Find Match User by Custom Criteria ----->
-//	@Query("SELECT u FROM user u WHERE " +
-//	        "(u.gender = :gender) AND " +
-//	        "(u.religion = :religion) AND " +
-//	        "(u.marriedStatus = :marriedStatus) AND " +
-//	        "(u.place = :place) AND " +
-//	        "(:caste IS NULL OR u.caste = :caste) AND " +
-//	        "(:minAge IS NULL OR u.age >= :minAge) AND " +
-//	        "(:maxAge IS NULL OR u.age <= :maxAge) AND " +
-//	        "(:minHeight IS NULL OR u.height >= :minHeight) AND " +
-//	        "(:maxHeight IS NULL OR u.height <= :maxHeight) AND " +
-//	        "(:occupation IS NULL OR u.occupation = :occupation)")
 	@Query("SELECT u FROM app_user u WHERE ( u.gender = :gender ) AND " + "( u.religion = :religion ) AND "
 			+ "( u.caste = :caste ) AND " + "( u.age BETWEEN :minAge AND :maxAge ) AND "
 			+ "( u.height BETWEEN :minHeight AND :maxHeight ) AND " + "( u.marriedStatus = :marriedStatus ) AND "
@@ -63,17 +47,14 @@ public interface UserRepo extends JpaRepository<User, Long> {
 			@Param("marriedStatus") String marriedStatus, @Param("place") String place,
 			@Param("occupation") String occupation, Pageable pageable);
 
-//	List<User> findByAgeBetween(int minAge, int maxAge);
-
-//	List<User> findByGenderAndReligionAndCasteAndMinAgeAndMaxAgeAndMinHeightAndMaxHeightAndMarriedStatusAndPlaceAndOccupation(
-//			String gender, String religion, String caste, int minAge, int maxAge, int minHeight, int maxHeight,
-//			String marriedStatus, String place, String occupation);
-
-	// Custom Finder Method ----->
-//	Page<User> findByUser(List<User> user, Pageable pageable);
-
 	@EntityGraph(attributePaths = { "userId", "gender", "religion", "caste", "age", "height", "marriedStatus", "place",
 			"occupation" })
 	Page<User> findAll(Pageable pageable);
+
+	@Query("SELECT DISTINCT u.religion FROM app_user u WHERE (u.religion IS NOT NULL) ORDER BY u.religion ASC")
+	List<String> findDistinctReligion();
+	
+	@Query("SELECT DISTINCT u.caste FROM app_user u WHERE (u.caste IS NOT NULL) AND (u.religion = :religion) ORDER BY u.caste ASC")
+	List<String> findDistinctCaste(@Param("religion") String religion);
 
 }

@@ -88,10 +88,10 @@ public class UserServiceImpl implements UserService {
 		User user2 = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 		userRepo.delete(user2);
 	}
-	
+
 	@Override
 	public void deleteUser(User user) {
-	    userRepo.delete(user);
+		userRepo.delete(user);
 	}
 
 	@Override
@@ -123,6 +123,13 @@ public class UserServiceImpl implements UserService {
 //        }
 //        return userRepo.findByAgeBetween(minAge, maxAge);
 //    }	
+
+	public List<String> getAllDistinctReligions() {
+		return userRepo.findDistinctReligion();
+	}
+	public List<String> getAllDistinctCastes(String religion) {
+		return userRepo.findDistinctCaste(religion);
+	}
 
 	@Override
 	public List<User> findMatchUserDetails(User user) {
@@ -168,16 +175,15 @@ public class UserServiceImpl implements UserService {
 		Pageable pageable = PageRequest.of(page, size, sort);
 		return userRepo.findAll(pageable);
 	}
-	
-	
-	public void saveFile(MultipartFile file){
 
-        try {
-            List<User> users = FileCRUD.convertExcelToListOfUser(file.getInputStream());
-            this.userRepo.saveAll(users);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	public void saveFile(MultipartFile file) {
 
-    }
+		try {
+			List<User> users = FileCRUD.convertExcelToListOfUser(file.getInputStream());
+			this.userRepo.saveAll(users);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

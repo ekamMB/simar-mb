@@ -70,6 +70,10 @@ public class UserRegisterController {
 		model.addAttribute("userForm", userForm);
 		model.addAttribute("userFormDetails", userFormDetails);
 
+		// Fetch distinct caste categories from the database
+		List<String> castes = userService.getAllDistinctCastes(userFormDetails.getReligion());
+		model.addAttribute("castes", castes);
+
 		return "registerdetails";
 	}
 

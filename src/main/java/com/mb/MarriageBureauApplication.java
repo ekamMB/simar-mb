@@ -49,18 +49,14 @@ public class MarriageBureauApplication {
 	@PostConstruct
 	public void createAdmin() throws Exception {
 		User user = new User();
-//		List<String> pic = new ArrayList<>();
-//		pic.add("img/Imagebg.png");
 
 		List<String> imagesList = new ArrayList<>(); 
-		imagesList.add("img/Imagebg.png");
+		imagesList.add("https://res.cloudinary.com/dcrlfty5k/image/upload/v1730366358/d459c434-00ea-4cff-9b7d-c7f18c7023e3.png");
 
 		user.setName("Admin");
 		user.setEmail(adminEmail);
 		user.setPassword(appPasswordEncoder.encode("open"));
-		user.setRoleList(List.of(AppConstants.ROLE_USER));
-//		user.setPicture(imagesList.get(0));   
-        // Use setImagesList to convert the list to a JSON string and set it
+		user.setRoleList(List.of("ADMIN"));
         user.setImagesList(imagesList);
      
 		user.setGender("male");

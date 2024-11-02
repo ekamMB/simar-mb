@@ -13,7 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mb.entities.User;
 import com.mb.forms.UserFormDetails;
@@ -33,6 +35,13 @@ public class FindMatch {
 	@Value("${admin.email}")
 	private String adminEmail;
 
+	@RequestMapping(value = "/getCastes", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> getCastesByReligion(@RequestParam String religion) {
+		System.out.println("Fetching castes for religion: " + religion);
+		return userService.getAllDistinctCastes(religion);
+	}
+
 //  Open for FindMatch Page Handler----->
 	@RequestMapping("/findmatch")
 	public String findmatch(Model model) {
@@ -40,6 +49,14 @@ public class FindMatch {
 
 		UserFormDetails userFormDetails = new UserFormDetails();
 		model.addAttribute("userFormDetails", userFormDetails);
+
+		// Fetch distinct relisions, castes categories from the database
+		List<String> religions = userService.getAllDistinctReligions();
+		List<String> castes = userService.getAllDistinctCastes(userFormDetails.getReligion());
+
+		model.addAttribute("religions", religions);
+		model.addAttribute("castes", castes);
+
 		return "findmatch";
 	}
 
@@ -49,6 +66,14 @@ public class FindMatch {
 
 		UserFormDetails userFormDetails = new UserFormDetails();
 		model.addAttribute("userFormDetails", userFormDetails);
+
+		// Fetch distinct relisions, castes categories from the database
+		List<String> religions = userService.getAllDistinctReligions();
+		List<String> castes = userService.getAllDistinctCastes(userFormDetails.getReligion());
+
+		model.addAttribute("religions", religions);
+		model.addAttribute("castes", castes);
+
 		return "User/findmatch";
 	}
 

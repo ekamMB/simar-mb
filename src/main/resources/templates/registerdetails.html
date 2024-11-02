@@ -38,21 +38,23 @@
 
 						<!-- User image field -->
 						<div class="mt-5">
-						    <center>
-						        <label id="image_preview_container" style="display: none;"
-						            class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">&#128071; You
-						            have Selected below Images &#128071;</label>
-						        <div id="image_preview" class="flex flex-wrap justify-center"></div>
-						    </center>
-						    <label class="block mb-2 font-bold text-sm font-medium text-gray-900 dark:text-white"
-						        for="multiple_files">Upload your Images<super class="text-red-600 ml-1 text-lg font-medium">*</super></label>
-						    <input
-						        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-						        data-th-field="*{userImages}" id="image_file_input" name="userImages" type="file" multiple="multiple">
-						    <p class="text-red-500" data-th-if="${#fields.hasErrors('userImages')}"
-						        data-th-errors="*{userImages}">
-						        Invalid Image
-						    </p>
+							<center>
+								<label id="image_preview_container" style="display: none;"
+									class="block mb-2 text-2xl font-medium text-gray-900 dark:text-white">&#128071; You
+									have Selected below Images &#128071;</label>
+								<div id="image_preview" class="flex flex-wrap justify-center"></div>
+							</center>
+							<label class="block mb-2 font-bold text-sm font-medium text-gray-900 dark:text-white"
+								for="multiple_files">Upload your Images<super
+									class="text-red-600 ml-1 text-lg font-medium">*</super></label>
+							<input
+								class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+								data-th-field="*{userImages}" id="image_file_input" name="userImages" type="file"
+								multiple="multiple">
+							<p class="text-red-500" data-th-if="${#fields.hasErrors('userImages')}"
+								data-th-errors="*{userImages}">
+								Invalid Image
+							</p>
 						</div>
 
 						<div class="flex flex-wrap justify-between mt-5">
@@ -125,7 +127,15 @@
 								</label>
 								<p data-th-if="${#fields.hasErrors('caste')}" data-th-errors="*{caste}"
 									class="text-red-600 flex"></p>
-								<select data-th-field="*{caste}" id="sikh" name="sikh"
+								<select data-th-field="*{caste}"
+									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+									<option value="">Select Caste</option>
+									<th:block  th:each="caste : ${castes}">
+										<option th:value="${caste}" th:text="${caste}"></option>
+									</th:block>
+								</select>
+
+								<!--								<select data-th-field="*{caste}" id="sikh" name="sikh"
 									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 									<option value="">Select Sikh Caste</option>
 									<option name="ramgharia" id="ramgharia" value="ramgharia"> Ramgharia </option>
@@ -139,6 +149,7 @@
 									<option name="other" id="other" value="other"> Other </option>
 									<option name="" id="" value="">Any Caste</option>
 								</select>
+-->
 							</div>
 
 							<!-- Caste: Hindu -->

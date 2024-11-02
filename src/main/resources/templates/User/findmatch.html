@@ -63,64 +63,31 @@
 									<p data-th-if="${#fields.hasErrors('religion')}" data-th-errors="*{religion}"
 										class="text-red-600"></p>
 									<select data-th-field="*{religion}" id="religion" name="religion"
-										class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-										<option value="">Select Religion from here</option>
-										<option value="hindu" id="hindu" name="hindu">Hindu</option>
-										<option value="sikh" id="sikh" name="sikh">Sikh</option>
-										<option value="muslim" id="muslim" name="muslim">Muslim</option>
-										<option value="christian" id="christian" name="christian">Christian</option>
-										<option value="anyCaste" id="anyCaste" name="anyCaste">Any Caste</option>
+										class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-sm p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+										<option value="">Select Religions</option>
+										<th:block th:each="religion : ${religions}">
+											<option th:value="${religion}" th:text="${religion}"></option>
+										</th:block>
 									</select>
+
 								</div>
 
 
 								<!-- Caste: Sikh -->
-								<div class="flex-1 min-w-0 mx-2 mt-2" id="sikh-caste-section" style="display: none;">
+								<div class="flex-1 min-w-0 mx-2 mt-2" id="sikh-caste-section">
 									<label for="sikh"
 										class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Caste</label>
 									<p data-th-if="${#fields.hasErrors('caste')}" data-th-errors="*{caste}"
 										class="text-red-600"></p>
-									<select data-th-field="*{caste}" name="sikh"
-										class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-										<!-- Initially hidden -->
-										<option value="">Select Sikh Caste</option>
-										<option value="ramgarhia">Ramgarhia</option>
-										<option value="swarnkar">Swarnkar</option>
-										<option value="jatt">Jatt</option>
-										<option value="arora">Arora</option>
-										<option value="mehra-sikh">Mehra Sikh</option>
-										<option value="khatri">Khatri</option>
-										<option value="sc">SC</option>
-										<option value="other">Other</option>
-									</select>
-								</div>
 
-								<!-- Caste: Hindu -->
-								<!--								<div class="flex-1 min-w-0 mx-2 mt-2" id="hindu-caste-section" style="display: none;">
-									<label for="hindu"
-										class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Caste</label>
-									<p data-th-if="${#fields.hasErrors('caste')}" data-th-errors="*{caste}"
-										class="text-red-600"> </p>
-									<select data-th-field="*{caste}" id="hindu" name="hindu"
+									<!-- Caste Dropdown -->
+									<select data-th-field="*{caste}" id="caste" name="caste"
 										class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-										<option value="">Select Hindu Caste</option>
-										<option name="brahman" id="brahman" value="brahman"> Brahman </option>
-										<option name="sindi" id="sindi" value="sindi"> Sindi </option>
-										<option name="bania" id="bania" value="bania"> Bania </option>
-										<option name="rajput" id="rajput" value="rajput"> Rajput </option>
-										<option name="ravidasia" id="ravidasia" value="ravidasia"> Ravidasia </option>
-										<option name="valmiki" id="valmiki" value="valmiki"> Valmiki </option>
-										<option name="sharma" id="sharma" value="sharma"> Sharma </option>
-										<option name="kumhaar" id="kumhaar" value="kumhaar"> Kumhar </option>
-										<option name="yadav" id="yadav" value="yadav"> Yadav </option>
-										<option name="jenny" id="jenny" value="jenny"> Jenny </option>
-										<option name="prajapati" id="prajapati" value="prajapati"> prajapati </option>
-										<option value="anycaste" id="anycaste" name="anycaste">Any Caste</option>
+										<option value="">Select Caste</option>
+										<!-- Options will be populated here -->
 									</select>
 								</div>
--->
 							</div>
-							<hr>
 
 							<div class="flex flex-wrap justify-evenly gap-8 mt-10 ">
 								<!-- Age -->
@@ -314,27 +281,22 @@
 	<script>
 		console.log("UserList page");
 
-		const religionSelect = document.getElementById('religion');
-		const sikhCasteSection = document.getElementById('sikh-caste-section');
-		const hinduCasteSection = document.getElementById('hindu-caste-section');
-
-		// Hide caste sections on page load
-		window.onload = () => {
-			sikhCasteSection.style.display = 'none';
-			hinduCasteSection.style.display = 'none';
-		};
-
-		religionSelect.addEventListener('change', (e) => {
-			const selectedReligion = e.target.value;
-			if (selectedReligion === 'sikh') {
-				sikhCasteSection.style.display = 'block';
-				hinduCasteSection.style.display = 'none';
-			} else if (selectedReligion === 'hindu') {
-				hinduCasteSection.style.display = 'block';
-				sikhCasteSection.style.display = 'none';
-			} else {
-				sikhCasteSection.style.display = 'none';
-				hinduCasteSection.style.display = 'none';
+		document.getElementById('religion').addEventListener('change', function () {
+			const religion = this.value;
+			if (religion) {
+				fetch(`/getCastes?religion=${religion}`)
+					.then(response => response.json())
+					.then(data => {
+						const casteSelect = document.getElementById('caste');
+						casteSelect.innerHTML = '<option value="">Select Caste</option>'; // Reset options
+						data.forEach(caste => {
+							const option = document.createElement('option');
+							option.value = caste;
+							option.textContent = caste;
+							casteSelect.appendChild(option);
+						});
+					})
+					.catch(error => console.error('Error fetching castes:', error));
 			}
 		});
 	</script>
